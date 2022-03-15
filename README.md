@@ -5,4 +5,4 @@ Pull Test 2 -> sxffire - Sapphire
 
 Pull Test 3 -> kurt2121- Kurt
 
-Pull Tezt 4 -> Tharshan2 - Tharshan
+Pull Test 4 -> Tharshan2 - Tharshan
