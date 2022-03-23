@@ -108,7 +108,7 @@ public class ChatServer {
                     for (PrintWriter writer : writers) {
                         DateTimeFormatter hhmm = DateTimeFormatter.ofPattern("HH:mm");
                         LocalTime time = LocalTime.now();
-                        writer.println("MESSAGE " + name + "(" + time.format(hhmm) + "): " + input + coordinator);
+                        writer.println("MESSAGE " + name + "(" + time.format(hhmm) + "): " + input);
                     }
                 }
             } catch (Exception e) {
