@@ -6,6 +6,8 @@ import java.util.Set;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.concurrent.*;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * A multithreaded chat room server. When a client connects the server requests a screen
@@ -85,7 +87,9 @@ public class ChatServer {
                 // But BEFORE THAT, let everyone else know that the new person has joined!
                 out.println("NAMEACCEPTED " + name);
                 for (PrintWriter writer : writers) {
-                    writer.println("MESSAGE " + name + " has joined");
+                    DateTimeFormatter hhmm = DateTimeFormatter.ofPattern("HH:mm");
+                    LocalTime time = LocalTime.now();
+                    writer.println("MESSAGE " + name + " has joined (" + time.format(hhmm) + ")");
                 }
                 writers.add(out);
 
@@ -96,7 +100,9 @@ public class ChatServer {
                         return;
                     }
                     for (PrintWriter writer : writers) {
-                        writer.println("MESSAGE " + name + ": " + input);
+                        DateTimeFormatter hhmm = DateTimeFormatter.ofPattern("HH:mm");
+                        LocalTime time = LocalTime.now();
+                        writer.println("MESSAGE " + name + "(" + time.format(hhmm) + "): " + input);
                     }
                 }
             } catch (Exception e) {
@@ -109,7 +115,9 @@ public class ChatServer {
                     System.out.println(name + " is leaving");
                     names.remove(name);
                     for (PrintWriter writer : writers) {
-                        writer.println("MESSAGE " + name + " has left");
+                        DateTimeFormatter hhmm = DateTimeFormatter.ofPattern("HH:mm");
+                        LocalTime time = LocalTime.now();
+                        writer.println("MESSAGE " + name + " has left (" + time.format(hhmm) + ")");
                     }
                 }
                 try { socket.close(); } catch (IOException e) {}
