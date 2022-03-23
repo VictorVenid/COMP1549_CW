@@ -121,6 +121,9 @@ public class ChatServer {
                     System.out.println(name + " is leaving");
                     names.remove(name);
                     if (name == coordinator) {
+                        if (names.isEmpty()){
+                            coordinator = null;
+                        }
                         for (PrintWriter writer : writers) {
                             DateTimeFormatter hhmm = DateTimeFormatter.ofPattern("HH:mm");
                             LocalTime time = LocalTime.now();
