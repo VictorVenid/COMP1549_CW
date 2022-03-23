@@ -7,5 +7,6 @@
 7. When done (and tested), contact the group and ask if anyone is making changes
 8. If noone is making changes, contribute your fork
 9. Test if all is working correctly
-10. Close the issue and create a new issue if needed
-11. Add whta you've done to the contribution file, under your name and ID
+10. Add a comment to the issue, explaining which lines of code you changed/added
+11. Close the issue and create a new issue if needed
+12. Add whta you've done to the contribution file, under your name and ID
