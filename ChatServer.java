@@ -25,6 +25,9 @@ public class ChatServer {
     // All client names, so we can check for duplicates upon registration.
     private static Set<String> names = new HashSet<>();
 
+    // Coordinator variable to store the name of the coordinator
+    private static String coordinator = null;
+
     // The set of all the print writers for all the clients, used for broadcast.
     private static Set<PrintWriter> writers = new HashSet<>();
 
@@ -77,6 +80,9 @@ public class ChatServer {
                     synchronized (names) {
                         if (!name.isEmpty() && !names.contains(name)) {
                             names.add(name);
+                            if (coordinator == null) {
+                                coordinator = name;
+                            }
                             break;
                         }
                     }
@@ -102,7 +108,7 @@ public class ChatServer {
                     for (PrintWriter writer : writers) {
                         DateTimeFormatter hhmm = DateTimeFormatter.ofPattern("HH:mm");
                         LocalTime time = LocalTime.now();
-                        writer.println("MESSAGE " + name + "(" + time.format(hhmm) + "): " + input);
+                        writer.println("MESSAGE " + name + "(" + time.format(hhmm) + "): " + input + " coordinator: " + coordinator);
                     }
                 }
             } catch (Exception e) {
