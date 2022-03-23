@@ -108,7 +108,7 @@ public class ChatServer {
                     for (PrintWriter writer : writers) {
                         DateTimeFormatter hhmm = DateTimeFormatter.ofPattern("HH:mm");
                         LocalTime time = LocalTime.now();
-                        writer.println("MESSAGE " + name + "(" + time.format(hhmm) + "): " + input + " coordinator: " + coordinator);
+                        writer.println("MESSAGE " + name + "(" + time.format(hhmm) + "): " + input);
                     }
                 }
             } catch (Exception e) {
@@ -124,6 +124,10 @@ public class ChatServer {
                         DateTimeFormatter hhmm = DateTimeFormatter.ofPattern("HH:mm");
                         LocalTime time = LocalTime.now();
                         writer.println("MESSAGE " + name + " has left (" + time.format(hhmm) + ")");
+                        if (name == coordinator) {
+                            coordinator = names.iterator().next();
+                            writer.println("MESSAGE " + coordinator + " is the new coordinator (" + time.format(hhmm) + ")");
+                        }
                     }
                 }
                 try { socket.close(); } catch (IOException e) {}
