@@ -2,7 +2,7 @@
 2. Choose a main issue and open it
 3. In the comments you should see subtasks
 4. Chose a subtask and create a new issue with the subtask as title
-5. Label the issue as subtask
+5. Label the issue as subtask and the appropriate main task (issue)
 6. Start working on the new issue
 7. When done (and tested), contact the group and ask if anyone is making changes
 8. If noone is making changes, contribute your fork
