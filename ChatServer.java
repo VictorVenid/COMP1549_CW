@@ -108,7 +108,7 @@ public class ChatServer {
                     for (PrintWriter writer : writers) {
                         DateTimeFormatter hhmm = DateTimeFormatter.ofPattern("HH:mm");
                         LocalTime time = LocalTime.now();
-                        writer.println("MESSAGE " + name + "(" + time.format(hhmm) + "): " + input);
+                        writer.println("MESSAGE " + name + "(" + time.format(hhmm) + "): " + input + coordinator);
                     }
                 }
             } catch (Exception e) {
@@ -120,13 +120,18 @@ public class ChatServer {
                 if (name != null) {
                     System.out.println(name + " is leaving");
                     names.remove(name);
-                    for (PrintWriter writer : writers) {
-                        DateTimeFormatter hhmm = DateTimeFormatter.ofPattern("HH:mm");
-                        LocalTime time = LocalTime.now();
-                        writer.println("MESSAGE " + name + " has left (" + time.format(hhmm) + ")");
-                        if (name == coordinator) {
+                    if (name == coordinator) {
+                        for (PrintWriter writer : writers) {
+                            DateTimeFormatter hhmm = DateTimeFormatter.ofPattern("HH:mm");
+                            LocalTime time = LocalTime.now();
                             coordinator = names.iterator().next();
-                            writer.println("MESSAGE " + coordinator + " is the new coordinator (" + time.format(hhmm) + ")");
+                            writer.println("MESSAGE " + name + "has left. The new coordinator is: " + coordinator + "(" + time.format(hhmm) + ")");
+                        }
+                    } else {
+                        for (PrintWriter writer : writers) {
+                            DateTimeFormatter hhmm = DateTimeFormatter.ofPattern("HH:mm");
+                            LocalTime time = LocalTime.now();
+                            writer.println("MESSAGE " + name + " has left (" + time.format(hhmm) + ")");
                         }
                     }
                 }
