@@ -128,7 +128,7 @@ public class ChatServer {
                             DateTimeFormatter hhmm = DateTimeFormatter.ofPattern("HH:mm");
                             LocalTime time = LocalTime.now();
                             coordinator = names.iterator().next();
-                            writer.println("MESSAGE " + name + "has left. The new coordinator is: " + coordinator + "(" + time.format(hhmm) + ")");
+                            writer.println("MESSAGE " + name + " has left. The new coordinator is: " + coordinator + "(" + time.format(hhmm) + ")");
                         }
                     } else {
                         for (PrintWriter writer : writers) {
