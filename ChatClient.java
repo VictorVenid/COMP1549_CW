@@ -30,6 +30,7 @@ public class ChatClient {
     Scanner in;
     PrintWriter out;
     JFrame frame = new JFrame("Chatter");
+    JTextArea membersArea = new JTextArea(3, 50);
     JTextField textField = new JTextField(50);
     JTextArea messageArea = new JTextArea(16, 50);
 
@@ -45,6 +46,8 @@ public class ChatClient {
 
         textField.setEditable(false);
         messageArea.setEditable(false);
+        membersArea.setEditable(false);
+        frame.getContentPane().add(new JScrollPane(membersArea), BorderLayout.NORTH);
         frame.getContentPane().add(textField, BorderLayout.SOUTH);
         frame.getContentPane().add(new JScrollPane(messageArea), BorderLayout.CENTER);
         frame.pack();
@@ -83,9 +86,10 @@ public class ChatClient {
                 } else if (line.startsWith("MESSAGE")) {
                     messageArea.append(line.substring(8) + "\n");
                 } else if (line.startsWith("COORDINATOR")) {
-                    messageArea.append("Coordinator: " + line.substring(12) + "\n");
+                    membersArea.setText(null);
+                    membersArea.append("Coordinator: " + line.substring(12) + "\n");
                 } else if (line.startsWith("MEMBERS")) {
-                    messageArea.append("Members: " + line.substring(8) + "\n");
+                    membersArea.append("Members: " + line.substring(8));
                 }
             }
         } finally {
