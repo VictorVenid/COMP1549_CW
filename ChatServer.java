@@ -115,11 +115,18 @@ public class ChatServer {
                     String input = in.nextLine();
                     if (input.toLowerCase().startsWith("/quit")) {
                         return;
-                    }
-                    for (HashMap.Entry<String, PrintWriter> writer : writers.entrySet()) {
+                    }else if (input.startsWith("/[")) {
                         DateTimeFormatter hhmm = DateTimeFormatter.ofPattern("HH:mm");
                         LocalTime time = LocalTime.now();
-                        writer.getValue().println("MESSAGE " + name + "(" + time.format(hhmm) + "): " + input);
+                        String toName = new String(input.substring(input.indexOf("[")+1, input.indexOf("]")));
+                        writers.get(toName).println("MESSAGE " + name + "(private)(" + time.format(hhmm) + "): " + input.substring(input.indexOf("]")+1));
+                        writers.get(name).println("MESSAGE pm to " + toName + "(" + time.format(hhmm) + "): " + input.substring(input.indexOf("]")+1));
+                    } else {
+                        for (HashMap.Entry<String, PrintWriter> writer : writers.entrySet()) {
+                            DateTimeFormatter hhmm = DateTimeFormatter.ofPattern("HH:mm");
+                            LocalTime time = LocalTime.now();
+                            writer.getValue().println("MESSAGE " + name + "(" + time.format(hhmm) + "): " + input);
+                        }
                     }
                 }
             } catch (Exception e) {
@@ -131,6 +138,7 @@ public class ChatServer {
                 if (name != null) {
                     System.out.println(name + " is leaving");
                     names.remove(name);
+                    writers.remove(name);
                     if (name == coordinator) {
                         if (names.isEmpty()){
                             coordinator = null;
