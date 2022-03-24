@@ -96,6 +96,8 @@ public class ChatServer {
                     DateTimeFormatter hhmm = DateTimeFormatter.ofPattern("HH:mm");
                     LocalTime time = LocalTime.now();
                     writer.println("MESSAGE " + name + " has joined (" + time.format(hhmm) + ")");
+                    writer.println("COORDINATOR " + coordinator);
+                    writer.println("MEMBERS " + names);
                 }
                 writers.add(out);
                 if (names.size() == 1) {
@@ -103,6 +105,7 @@ public class ChatServer {
                         DateTimeFormatter hhmm = DateTimeFormatter.ofPattern("HH:mm");
                         LocalTime time = LocalTime.now();
                         writer.println("MESSAGE You are the first to join and the coordinator of this chat (" + time.format(hhmm) + ")");
+                        writer.println("COORDINATOR " + coordinator);
                     }
                 }
                 // Accept messages from this client and broadcast them.
@@ -135,12 +138,16 @@ public class ChatServer {
                             LocalTime time = LocalTime.now();
                             coordinator = names.iterator().next();
                             writer.println("MESSAGE " + name + " has left. The new coordinator is: " + coordinator + "(" + time.format(hhmm) + ")");
+                            writer.println("COORDINATOR " + coordinator);
+                            writer.println("MEMBERS " + names);
                         }
                     } else {
                         for (PrintWriter writer : writers) {
                             DateTimeFormatter hhmm = DateTimeFormatter.ofPattern("HH:mm");
                             LocalTime time = LocalTime.now();
                             writer.println("MESSAGE " + name + " has left (" + time.format(hhmm) + ")");
+                            writer.println("COORDINATOR " + coordinator);
+                            writer.println("MEMBERS " + names);
                         }
                     }
                 }

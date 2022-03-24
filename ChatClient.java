@@ -82,6 +82,10 @@ public class ChatClient {
                     textField.setEditable(true);
                 } else if (line.startsWith("MESSAGE")) {
                     messageArea.append(line.substring(8) + "\n");
+                } else if (line.startsWith("COORDINATOR")) {
+                    messageArea.append("Coordinator: " + line.substring(12) + "\n");
+                } else if (line.startsWith("MEMBERS")) {
+                    messageArea.append("Members: " + line.substring(8) + "\n");
                 }
             }
         } finally {
