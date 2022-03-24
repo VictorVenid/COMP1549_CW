@@ -96,8 +96,6 @@ public class ChatServer {
                     DateTimeFormatter hhmm = DateTimeFormatter.ofPattern("HH:mm");
                     LocalTime time = LocalTime.now();
                     writer.println("MESSAGE " + name + " has joined (" + time.format(hhmm) + ")");
-                    writer.println("COORDINATOR " + coordinator);
-                    writer.println("MEMBERS " + names);
                 }
                 writers.add(out);
                 if (names.size() == 1) {
@@ -106,6 +104,11 @@ public class ChatServer {
                         LocalTime time = LocalTime.now();
                         writer.println("MESSAGE You are the first to join and the coordinator of this chat (" + time.format(hhmm) + ")");
                         writer.println("COORDINATOR " + coordinator);
+                    }
+                } else {
+                    for (PrintWriter writer : writers) {
+                        writer.println("COORDINATOR " + coordinator);
+                        writer.println("MEMBERS " + names);
                     }
                 }
                 // Accept messages from this client and broadcast them.
