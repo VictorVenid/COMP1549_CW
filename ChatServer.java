@@ -8,6 +8,7 @@ import java.util.Scanner;
 import java.util.concurrent.*;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 
 /**
  * A multithreaded chat room server. When a client connects the server requests a screen
@@ -29,7 +30,7 @@ public class ChatServer {
     private static String coordinator = null;
 
     // The set of all the print writers for all the clients, used for broadcast.
-    private static Set<PrintWriter> writers = new HashSet<>();
+    private static HashMap<String, PrintWriter> writers = new HashMap<>();
 
     public static void main(String[] args) throws Exception {
         System.out.println("The chat server is running...");
@@ -92,23 +93,21 @@ public class ChatServer {
                 // to the set of all writers so this client can receive broadcast messages.
                 // But BEFORE THAT, let everyone else know that the new person has joined!
                 out.println("NAMEACCEPTED " + name);
-                for (PrintWriter writer : writers) {
+                for (HashMap.Entry<String, PrintWriter> writer : writers.entrySet()) {
                     DateTimeFormatter hhmm = DateTimeFormatter.ofPattern("HH:mm");
                     LocalTime time = LocalTime.now();
-                    writer.println("MESSAGE " + name + " has joined (" + time.format(hhmm) + ")");
+                    writer.getValue().println("MESSAGE " + name + " has joined (" + time.format(hhmm) + ")");
                 }
-                writers.add(out);
+                writers.put(name, out);
                 if (names.size() == 1) {
-                    for (PrintWriter writer : writers) {
-                        DateTimeFormatter hhmm = DateTimeFormatter.ofPattern("HH:mm");
-                        LocalTime time = LocalTime.now();
-                        writer.println("MESSAGE You are the first to join and the coordinator of this chat (" + time.format(hhmm) + ")");
-                        writer.println("COORDINATOR " + coordinator);
-                    }
+                    DateTimeFormatter hhmm = DateTimeFormatter.ofPattern("HH:mm");
+                    LocalTime time = LocalTime.now();
+                    writers.get(name).println("MESSAGE You are the first to join and the coordinator of this chat (" + time.format(hhmm) + ")");
+                    writers.get(name).println("COORDINATOR " + coordinator);
                 } else {
-                    for (PrintWriter writer : writers) {
-                        writer.println("COORDINATOR " + coordinator);
-                        writer.println("MEMBERS " + names);
+                    for (HashMap.Entry<String, PrintWriter> writer : writers.entrySet()) {
+                        writer.getValue().println("COORDINATOR " + coordinator);
+                        writer.getValue().println("MEMBERS " + names);
                     }
                 }
                 // Accept messages from this client and broadcast them.
@@ -117,10 +116,10 @@ public class ChatServer {
                     if (input.toLowerCase().startsWith("/quit")) {
                         return;
                     }
-                    for (PrintWriter writer : writers) {
+                    for (HashMap.Entry<String, PrintWriter> writer : writers.entrySet()) {
                         DateTimeFormatter hhmm = DateTimeFormatter.ofPattern("HH:mm");
                         LocalTime time = LocalTime.now();
-                        writer.println("MESSAGE " + name + "(" + time.format(hhmm) + "): " + input);
+                        writer.getValue().println("MESSAGE " + name + "(" + time.format(hhmm) + "): " + input);
                     }
                 }
             } catch (Exception e) {
@@ -136,21 +135,21 @@ public class ChatServer {
                         if (names.isEmpty()){
                             coordinator = null;
                         }
-                        for (PrintWriter writer : writers) {
+                        for (HashMap.Entry<String, PrintWriter> writer : writers.entrySet()) {
                             DateTimeFormatter hhmm = DateTimeFormatter.ofPattern("HH:mm");
                             LocalTime time = LocalTime.now();
                             coordinator = names.iterator().next();
-                            writer.println("MESSAGE " + name + " has left. The new coordinator is: " + coordinator + "(" + time.format(hhmm) + ")");
-                            writer.println("COORDINATOR " + coordinator);
-                            writer.println("MEMBERS " + names);
+                            writer.getValue().println("MESSAGE " + name + " has left. The new coordinator is: " + coordinator + "(" + time.format(hhmm) + ")");
+                            writer.getValue().println("COORDINATOR " + coordinator);
+                            writer.getValue().println("MEMBERS " + names);
                         }
                     } else {
-                        for (PrintWriter writer : writers) {
+                        for (HashMap.Entry<String, PrintWriter> writer : writers.entrySet()) {
                             DateTimeFormatter hhmm = DateTimeFormatter.ofPattern("HH:mm");
                             LocalTime time = LocalTime.now();
-                            writer.println("MESSAGE " + name + " has left (" + time.format(hhmm) + ")");
-                            writer.println("COORDINATOR " + coordinator);
-                            writer.println("MEMBERS " + names);
+                            writer.getValue().println("MESSAGE " + name + " has left (" + time.format(hhmm) + ")");
+                            writer.getValue().println("COORDINATOR " + coordinator);
+                            writer.getValue().println("MEMBERS " + names);
                         }
                     }
                 }
