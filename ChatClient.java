@@ -30,9 +30,9 @@ public class ChatClient {
     Scanner in;
     PrintWriter out;
     JFrame frame = new JFrame("Chatter");
-    JTextArea membersArea = new JTextArea(3, 50);
-    JTextField textField = new JTextField(50);
-    JTextArea messageArea = new JTextArea(16, 50);
+    JTextArea membersArea = new JTextArea(18, 10);
+    JTextField textField = new JTextField(40);
+    JTextArea messageArea = new JTextArea(17, 40);
 
     /**
      * Constructs the client by laying out the GUI and registering a listener with the
@@ -47,7 +47,7 @@ public class ChatClient {
         textField.setEditable(false);
         messageArea.setEditable(false);
         membersArea.setEditable(false);
-        frame.getContentPane().add(new JScrollPane(membersArea), BorderLayout.NORTH);
+        frame.getContentPane().add(new JScrollPane(membersArea), BorderLayout.EAST);
         frame.getContentPane().add(textField, BorderLayout.SOUTH);
         frame.getContentPane().add(new JScrollPane(messageArea), BorderLayout.CENTER);
         frame.pack();
@@ -84,12 +84,13 @@ public class ChatClient {
                     this.frame.setTitle("Chatter - " + line.substring(13));
                     textField.setEditable(true);
                 } else if (line.startsWith("MESSAGE")) {
-                    messageArea.append(line.substring(8) + "\n");
+                    messageArea.append(line.substring(8) + " \n");
                 } else if (line.startsWith("COORDINATOR")) {
                     membersArea.setText(null);
-                    membersArea.append("Coordinator: " + line.substring(12) + "\n");
+                    membersArea.append("Coordinator: \n" + line.substring(12) + "\n");
                 } else if (line.startsWith("MEMBERS")) {
-                    membersArea.append("Members: " + line.substring(8));
+                    String members = line.substring(line.indexOf("[")+1, line.indexOf("]"));
+                    membersArea.append("Members: \n" + members.replaceAll(", ", "\n"));
                 }
             }
         } finally {

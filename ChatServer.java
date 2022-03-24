@@ -119,7 +119,7 @@ public class ChatServer {
                         DateTimeFormatter hhmm = DateTimeFormatter.ofPattern("HH:mm");
                         LocalTime time = LocalTime.now();
                         String toName = new String(input.substring(input.indexOf("[")+1, input.indexOf("]")));
-                        writers.get(toName).println("MESSAGE " + name + "(private)(" + time.format(hhmm) + "): " + input.substring(input.indexOf("]")+1));
+                        writers.get(toName).println("MESSAGE " + name + "(pm)(" + time.format(hhmm) + "): " + input.substring(input.indexOf("]")+1));
                         writers.get(name).println("MESSAGE pm to " + toName + "(" + time.format(hhmm) + "): " + input.substring(input.indexOf("]")+1));
                     } else {
                         for (HashMap.Entry<String, PrintWriter> writer : writers.entrySet()) {
