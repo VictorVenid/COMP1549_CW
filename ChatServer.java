@@ -98,7 +98,13 @@ public class ChatServer {
                     writer.println("MESSAGE " + name + " has joined (" + time.format(hhmm) + ")");
                 }
                 writers.add(out);
-
+                if (names.size() == 1) {
+                    for (PrintWriter writer : writers) {
+                        DateTimeFormatter hhmm = DateTimeFormatter.ofPattern("HH:mm");
+                        LocalTime time = LocalTime.now();
+                        writer.println("MESSAGE You are the first to join and the coordinator of this chat (" + time.format(hhmm) + ")");
+                    }
+                }
                 // Accept messages from this client and broadcast them.
                 while (true) {
                     String input = in.nextLine();
