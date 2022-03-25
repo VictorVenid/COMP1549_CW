@@ -30,6 +30,8 @@ public class ChatClient {
     Scanner in;
     PrintWriter out;
     String name;
+
+    // Interface
     JFrame frame = new JFrame("Chat");
     JTextArea membersArea = new JTextArea(18, 10);
     JTextField textField = new JTextField(40);
@@ -68,12 +70,12 @@ public class ChatClient {
     }
 
     private String getName() {
-        return JOptionPane.showInputDialog(
-                frame,
-                "Choose a username:",
-                "Username selection",
-                JOptionPane.PLAIN_MESSAGE
-        );
+        if (name != null && !name.isEmpty()) {return name;}
+        name = JOptionPane.showInputDialog(frame, "Choose a username:", "Username selection", JOptionPane.PLAIN_MESSAGE);
+        if (name == null) {System.exit(0);}
+        name = name.replaceAll(" ", "");
+
+        return name;
     }
 
     private void run() throws IOException {
@@ -86,15 +88,11 @@ public class ChatClient {
                 while (in.hasNextLine()) {
                     String line = in.nextLine();
                     if (line.startsWith("SUBMITNAME")) {
-                        if (name == null) {
-                            name = getName();
-                        }
-                        if (name == null) {
-                            System.exit(0);
-                        }
-                        out.println(name);
+                        out.println(getName());
+                        name = null;
                     } else if (line.startsWith("NAMEACCEPTED")) {
                         this.frame.setTitle("Chatter - " + line.substring(13));
+                        name = line.substring(13);
                         textField.setEditable(true);
                     } else if (line.startsWith("MESSAGE")) {
                         messageArea.append(line.substring(8) + " \n");
