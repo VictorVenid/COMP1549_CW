@@ -55,7 +55,12 @@ public class ChatClient {
         // Send on enter then clear to prepare for next message
         textField.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                out.println(textField.getText());
+                String message = textField.getText();
+                if (message.toLowerCase().startsWith("/quit")) {
+                    System.exit(0);
+                } else {
+                    out.println(textField.getText());
+                }
                 textField.setText("");
             }
         });
@@ -71,35 +76,41 @@ public class ChatClient {
     }
 
     private void run() throws IOException {
-        try {
-            Socket socket = new Socket(serverAddress, 59001);
-            in = new Scanner(socket.getInputStream());
-            out = new PrintWriter(socket.getOutputStream(), true);
+        while (true) {
+            try {
+                Socket socket = new Socket(serverAddress, 59001);
+                in = new Scanner(socket.getInputStream());
+                out = new PrintWriter(socket.getOutputStream(), true);
 
-            while (in.hasNextLine()) {
-                String line = in.nextLine();
-                if (line.startsWith("SUBMITNAME")) {
-                    String name = getName();
-                    if (name == null){
-                        System.exit(0);
+                while (in.hasNextLine()) {
+                    String line = in.nextLine();
+                    if (line.startsWith("SUBMITNAME")) {
+                        String name = getName();
+                        if (name == null) {
+                            System.exit(0);
+                        }
+                        out.println(name);
+                    } else if (line.startsWith("NAMEACCEPTED")) {
+                        this.frame.setTitle("Chatter - " + line.substring(13));
+                        textField.setEditable(true);
+                    } else if (line.startsWith("MESSAGE")) {
+                        messageArea.append(line.substring(8) + " \n");
+                    } else if (line.startsWith("COORDINATOR")) {
+                        membersArea.setText(null);
+                        membersArea.append("Coordinator: \n" + line.substring(12) + "\n");
+                    } else if (line.startsWith("MEMBERS")) {
+                        String members = line.substring(line.indexOf("[") + 1, line.indexOf("]"));
+                        membersArea.append("Members: \n" + members.replaceAll(", ", "\n"));
                     }
-                    out.println(name);
-                } else if (line.startsWith("NAMEACCEPTED")) {
-                    this.frame.setTitle("Chatter - " + line.substring(13));
-                    textField.setEditable(true);
-                } else if (line.startsWith("MESSAGE")) {
-                    messageArea.append(line.substring(8) + " \n");
-                } else if (line.startsWith("COORDINATOR")) {
-                    membersArea.setText(null);
-                    membersArea.append("Coordinator: \n" + line.substring(12) + "\n");
-                } else if (line.startsWith("MEMBERS")) {
-                    String members = line.substring(line.indexOf("[")+1, line.indexOf("]"));
-                    membersArea.append("Members: \n" + members.replaceAll(", ", "\n"));
+                }
+            } catch (Exception ServerNotResponding){
+                String[] options = {"Retry", "Cancel"};
+                int retry = JOptionPane.showOptionDialog(frame, "Server not responding!", "Title",
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+                if (retry == 1) {
+                    System.exit(0);
                 }
             }
-        } finally {
-            frame.setVisible(false);
-            frame.dispose();
         }
     }
 

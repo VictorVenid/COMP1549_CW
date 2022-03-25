@@ -114,9 +114,7 @@ public class ChatServer {
                 // Accept messages from this client and broadcast them.
                 while (true) {
                     String input = in.nextLine();
-                    if (input.toLowerCase().startsWith("/quit")) {
-                        return;
-                    }else if (input.startsWith("/[")) {
+                    if (input.startsWith("/[")) {
                         DateTimeFormatter hhmm = DateTimeFormatter.ofPattern("HH:mm");
                         LocalTime time = LocalTime.now();
                         String toName = new String(input.substring(input.indexOf("[")+1, input.indexOf("]")));
