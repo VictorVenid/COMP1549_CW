@@ -29,7 +29,7 @@ public class ChatClient {
     String serverAddress;
     Scanner in;
     PrintWriter out;
-    JFrame frame = new JFrame("Chatter");
+    JFrame frame = new JFrame("Chat");
     JTextArea membersArea = new JTextArea(18, 10);
     JTextField textField = new JTextField(40);
     JTextArea messageArea = new JTextArea(17, 40);
@@ -64,8 +64,8 @@ public class ChatClient {
     private String getName() {
         return JOptionPane.showInputDialog(
                 frame,
-                "Choose a screen name:",
-                "Screen name selection",
+                "Choose a username:",
+                "Username selection",
                 JOptionPane.PLAIN_MESSAGE
         );
     }
@@ -79,7 +79,11 @@ public class ChatClient {
             while (in.hasNextLine()) {
                 String line = in.nextLine();
                 if (line.startsWith("SUBMITNAME")) {
-                    out.println(getName());
+                    String name = getName();
+                    if (name == null){
+                        System.exit(0);
+                    }
+                    out.println(name);
                 } else if (line.startsWith("NAMEACCEPTED")) {
                     this.frame.setTitle("Chatter - " + line.substring(13));
                     textField.setEditable(true);

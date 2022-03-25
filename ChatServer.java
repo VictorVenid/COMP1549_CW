@@ -78,7 +78,7 @@ public class ChatServer {
                     if (name == null) {
                         return;
                     }
-                    name = name.replaceAll(",", "");
+                    name = name.replaceAll(" ", "");
                     synchronized (names) {
                         if (!name.isEmpty() && !names.contains(name)) {
                             names.add(name);
