@@ -116,7 +116,7 @@ public class ChatClient {
                         membersArea.append("Coordinator: \n" + coordinator + "\n");
                     } else if (line.startsWith("MEMBERS")) {
                         String members = line.substring(line.indexOf("[") + 1, line.indexOf("]"));
-                        members = members.replaceAll(" " + coordinator + ", ", " ");
+                        members = members.replaceAll(coordinator + ", ", "");
                         membersArea.append("Members: \n" + members.replaceAll(", ", "\n"));
                     }
                 }
