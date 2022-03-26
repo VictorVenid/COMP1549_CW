@@ -113,11 +113,12 @@ public class ChatClient {
                     } else if (line.startsWith("COORDINATOR")) {
                         coordinator = line.substring(12);
                         membersArea.setText(null);
-                        membersArea.append("Coordinator: \n" + coordinator + "\n");
+                        membersArea.append("Coordinator: \n" + coordinator + "\n\nMembers: \n");
                     } else if (line.startsWith("MEMBERS")) {
-                        String members = line.substring(line.indexOf("[") + 1, line.indexOf("]"));
-                        members = members.replaceAll(coordinator + ", ", "");
-                        membersArea.append("Members: \n" + members.replaceAll(", ", "\n"));
+                        String members = " " + line.substring(line.indexOf("[") + 1, line.indexOf("]")) + ", ";
+                        members = members.replaceAll(" " + coordinator + ", ", " ");
+                        members = members.replaceAll(" ", "");
+                        membersArea.append(members.replaceAll(",", "\n"));
                     }
                 }
             } catch (Exception ServerNotResponding){
