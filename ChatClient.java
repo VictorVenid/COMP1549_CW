@@ -98,6 +98,7 @@ public class ChatClient {
                 in = new Scanner(socket.getInputStream());
                 out = new PrintWriter(socket.getOutputStream(), true);
 
+                // Handle Flags
                 while (in.hasNextLine()) {
                     String line = in.nextLine();
                     if (line.startsWith("SUBMITNAME")) {
