@@ -25,7 +25,6 @@ import javax.swing.JTextField;
  * following this string should be displayed in its message area.
  */
 public class ChatClient {
-
     String serverAddress;
     Scanner in;
     PrintWriter out;
