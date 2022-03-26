@@ -25,13 +25,17 @@ import javax.swing.JTextField;
  * following this string should be displayed in its message area.
  */
 public class ChatClient {
-
     String serverAddress;
     Scanner in;
     PrintWriter out;
-    JFrame frame = new JFrame("Chatter");
-    JTextField textField = new JTextField(50);
-    JTextArea messageArea = new JTextArea(16, 50);
+    String name;
+    String coordinator;
+
+    // Interface
+    JFrame frame = new JFrame("Chat");
+    JTextArea membersArea = new JTextArea(18, 10);
+    JTextField textField = new JTextField(40);
+    JTextArea messageArea = new JTextArea(17, 40);
 
     /**
      * Constructs the client by laying out the GUI and registering a listener with the
@@ -45,6 +49,8 @@ public class ChatClient {
 
         textField.setEditable(false);
         messageArea.setEditable(false);
+        membersArea.setEditable(false);
+        frame.getContentPane().add(new JScrollPane(membersArea), BorderLayout.EAST);
         frame.getContentPane().add(textField, BorderLayout.SOUTH);
         frame.getContentPane().add(new JScrollPane(messageArea), BorderLayout.CENTER);
         frame.pack();
@@ -52,41 +58,62 @@ public class ChatClient {
         // Send on enter then clear to prepare for next message
         textField.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                out.println(textField.getText());
+                String message = textField.getText();
+                if (message.toLowerCase().startsWith("/quit")) {
+                    System.exit(0);
+                } else {
+                    out.println(textField.getText());
+                }
                 textField.setText("");
             }
         });
     }
 
     private String getName() {
-        return JOptionPane.showInputDialog(
-                frame,
-                "Choose a screen name:",
-                "Screen name selection",
-                JOptionPane.PLAIN_MESSAGE
-        );
+        if (name != null && !name.isEmpty()) {return name;}
+        name = JOptionPane.showInputDialog(frame, "Choose a username:", "Username selection", JOptionPane.PLAIN_MESSAGE);
+        if (name == null) {System.exit(0);}
+        name = name.replaceAll(" ", "");
+
+        return name;
     }
 
     private void run() throws IOException {
-        try {
-            Socket socket = new Socket(serverAddress, 59001);
-            in = new Scanner(socket.getInputStream());
-            out = new PrintWriter(socket.getOutputStream(), true);
+        while (true) {
+            try {
+                Socket socket = new Socket(serverAddress, 59001);
+                in = new Scanner(socket.getInputStream());
+                out = new PrintWriter(socket.getOutputStream(), true);
 
-            while (in.hasNextLine()) {
-                String line = in.nextLine();
-                if (line.startsWith("SUBMITNAME")) {
-                    out.println(getName());
-                } else if (line.startsWith("NAMEACCEPTED")) {
-                    this.frame.setTitle("Chatter - " + line.substring(13));
-                    textField.setEditable(true);
-                } else if (line.startsWith("MESSAGE")) {
-                    messageArea.append(line.substring(8) + "\n");
+                while (in.hasNextLine()) {
+                    String line = in.nextLine();
+                    if (line.startsWith("SUBMITNAME")) {
+                        out.println(getName());
+                        name = null;
+                    } else if (line.startsWith("NAMEACCEPTED")) {
+                        this.frame.setTitle("Chatter - " + line.substring(13));
+                        name = line.substring(13);
+                        textField.setEditable(true);
+                    } else if (line.startsWith("MESSAGE")) {
+                        messageArea.append(line.substring(8) + " \n");
+                    } else if (line.startsWith("COORDINATOR")) {
+                        coordinator = line.substring(12);
+                        membersArea.setText(null);
+                        membersArea.append("Coordinator: \n" + coordinator + "\n");
+                    } else if (line.startsWith("MEMBERS")) {
+                        String members = line.substring(line.indexOf("[") + 1, line.indexOf("]"));
+                        members = members.replaceAll(" " + coordinator + ", ", " ");
+                        membersArea.append("Members: \n" + members.replaceAll(", ", "\n"));
+                    }
+                }
+            } catch (Exception ServerNotResponding){
+                String[] options = {"Retry", "Cancel"};
+                int retry = JOptionPane.showOptionDialog(frame, "Server not responding!", "Title",
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+                if (retry == 1) {
+                    System.exit(0);
                 }
             }
-        } finally {
-            frame.setVisible(false);
-            frame.dispose();
         }
     }
 
