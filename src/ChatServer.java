@@ -173,9 +173,8 @@ public class ChatServer {
                             writer.getValue().println("COORDINATOR " + coordinator);
                             writer.getValue().println("MEMBERS " + names);
                         }
-                        addToMemory(name + " disconnected (" +
-                                LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")) + ") " +
-                                coordinator + " is coordinator");
+                        addToMemory(name + " disconnected. " + coordinator + " is coordinator ("
+                                + LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
                     } else {
                         // if MEMBER
                         for (HashMap.Entry<String, PrintWriter> writer : writers.entrySet()) {
