@@ -29,6 +29,7 @@ public class ChatClient {
     Scanner in;
     PrintWriter out;
     String name;
+    String coordinator;
 
     // Interface
     JFrame frame = new JFrame("Chat");
@@ -96,10 +97,12 @@ public class ChatClient {
                     } else if (line.startsWith("MESSAGE")) {
                         messageArea.append(line.substring(8) + " \n");
                     } else if (line.startsWith("COORDINATOR")) {
+                        coordinator = line.substring(12);
                         membersArea.setText(null);
-                        membersArea.append("Coordinator: \n" + line.substring(12) + "\n");
+                        membersArea.append("Coordinator: \n" + coordinator + "\n");
                     } else if (line.startsWith("MEMBERS")) {
                         String members = line.substring(line.indexOf("[") + 1, line.indexOf("]"));
+                        members = members.replaceAll(" " + coordinator + ", ", " ");
                         membersArea.append("Members: \n" + members.replaceAll(", ", "\n"));
                     }
                 }
