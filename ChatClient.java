@@ -12,17 +12,18 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-/**
- * A simple Swing-based client for the chat server. Graphically it is a frame with a text
- * field for entering messages and a textarea to see the whole dialog.
+/**     CHAT CLIENT
+ * Simple swing chat interface:
+ *      - message box
+ *      - text (out) box
+ *      - members box (displays active members)
  *
- * The client follows the following Chat Protocol. When the server sends "SUBMITNAME" the
- * client replies with the desired screen name. The server will keep sending "SUBMITNAME"
- * requests as long as the client submits screen names that are already in use. When the
- * server sends a line beginning with "NAMEACCEPTED" the client is now allowed to start
- * sending the server arbitrary strings to be broadcast to all chatters connected to the
- * server. When the server sends a line beginning with "MESSAGE" then all characters
- * following this string should be displayed in its message area.
+ * Works by reading flags at start of received input:
+ *      SUBMITNAME, NAMEACCEPTED, MESSAGE, COORDINATOR, MEMBERS
+ *
+ * Remembers user and messages until exit (even if server crashes)
+ *
+ * If server connection cannot be established, retry option appears
  */
 public class ChatClient {
     String serverAddress;
@@ -37,16 +38,14 @@ public class ChatClient {
     JTextField textField = new JTextField(40);
     JTextArea messageArea = new JTextArea(17, 40);
 
-    /**
-     * Constructs the client by laying out the GUI and registering a listener with the
-     * textfield so that pressing Return in the listener sends the textfield contents
-     * to the server. Note however that the textfield is initially NOT editable, and
-     * only becomes editable AFTER the client receives the NAMEACCEPTED message from
-     * the server.
+    /**     CLIENT
+     * constructs the client
+     *
      */
     public ChatClient(String serverAddress) {
         this.serverAddress = serverAddress;
 
+        // Interface
         textField.setEditable(false);
         messageArea.setEditable(false);
         membersArea.setEditable(false);
@@ -55,29 +54,43 @@ public class ChatClient {
         frame.getContentPane().add(new JScrollPane(messageArea), BorderLayout.CENTER);
         frame.pack();
 
-        // Send on enter then clear to prepare for next message
+        // Text field setup
         textField.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String message = textField.getText();
+                // exit on "/quit"
                 if (message.toLowerCase().startsWith("/quit")) {
                     System.exit(0);
+                // otherwise: send out contents
                 } else {
                     out.println(textField.getText());
                 }
+                // set to empty
                 textField.setText("");
             }
         });
     }
 
+    // LogIn popup window & client based name handling
     private String getName() {
+        // if there is a previous session, resume it
         if (name != null && !name.isEmpty()) {return name;}
+        // otherwise, ask for LogIn
         name = JOptionPane.showInputDialog(frame, "Choose a username:", "Username selection", JOptionPane.PLAIN_MESSAGE);
         if (name == null) {System.exit(0);}
+        // replace all " " in name (name standard is any character except " ")
         name = name.replaceAll(" ", "");
-
         return name;
     }
 
+    /**     RUN
+     *  runs the client, tries to connect
+     *  if not able to connect(Exception ServerNotResponding):
+     *      display a option box with retry and cancel(close) option
+     *  if connected(try):
+     *      reads the input from the server
+     *      handles Flag interpretation
+     */
     private void run() throws IOException {
         while (true) {
             try {
@@ -117,6 +130,11 @@ public class ChatClient {
         }
     }
 
+    /**     MAIN
+     * server IP should be passed as argument to the client
+     * if not, ask for it
+     * otherwise create and run the client
+     */
     public static void main(String[] args) throws Exception {
         if (args.length != 1) {
             System.err.println("Pass the server IP as the sole command line argument");
