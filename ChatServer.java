@@ -11,7 +11,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 
-/**
+/**     CHAT SERVER
  * Multithreaded Chat Server
  * Works with:
  *              PrintWriter/Scaner: in/out (println correspondation system)
@@ -60,7 +60,7 @@ public class ChatServer {
         }
 
 
-        /**             RUN
+        /**         RUN
          *  try:    JOIN & CHAT handelers
          *              Name Creation
          *              Messages
