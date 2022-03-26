@@ -1,15 +1,22 @@
-SERVER START: 26/03/22 21:31
+SERVER START: 26/03/22 22:02
 
-ONE joined
-ONE is coordinator (21:31)
-TWO joined
-THREE joined
-ONE disconnected
-TWO is coordinator (21:31)
-THREE disconnected (21:31)
-TWO(21:31): alone
-FOUR joined
-(private): FOUR -> TWO:  hello buddy(21:32)
-FOUR disconnected (21:32)
-TWO disconnected
-null is coordinator (21:32)
+Victor joined (22:02)
+Victor is coordinator (22:02)
+Jhon joined (22:02)
+Shen joined (22:02)
+Shen(22:03): Hello
+(private): Victor -> Jhon:  who are you?(22:03)
+(private): Victor -> Victor:  noone(22:03)
+Jhon disconnected (22:03)
+Victor disconnected (22:03) Shen is coordinator
+Victor joined (22:04)
+Victor(22:04): yoo
+Victor disconnected (22:04)
+Shen disconnected (22:04) null is coordinator
+
+
+SERVER START: 26/03/22 22:04
+
+NewTest joined (22:04)
+NewTest is coordinator (22:04)
+NewTest disconnected (22:05) null is coordinator

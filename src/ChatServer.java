@@ -43,7 +43,7 @@ public class ChatServer {
     // Start the Server
     public static void main(String[] args) throws Exception {
         System.out.println("The chat server is running...");
-        addToMemory("SERVER START: "+ LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yy HH:mm")) + "\n");
+        addToMemory("\n\nSERVER START: "+ LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yy HH:mm")) + "\n");
         ExecutorService pool = Executors.newFixedThreadPool(100);
         try (ServerSocket listener = new ServerSocket(59001)) {
             while (true) {
