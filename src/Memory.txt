@@ -1,0 +1,15 @@
+SERVER START: 26/03/22 21:31
+
+ONE joined
+ONE is coordinator (21:31)
+TWO joined
+THREE joined
+ONE disconnected
+TWO is coordinator (21:31)
+THREE disconnected (21:31)
+TWO(21:31): alone
+FOUR joined
+(private): FOUR -> TWO:  hello buddy(21:32)
+FOUR disconnected (21:32)
+TWO disconnected
+null is coordinator (21:32)
