@@ -60,14 +60,19 @@ public class ChatServer {
         }
 
 
-        /**     RUN
-         *  JOIN & CHAT handelers
-         *      Name Creation
-         *      Messages
-         *  DISCONNECT   handeler
+        /**             RUN
+         *  try:    JOIN & CHAT handelers
+         *              Name Creation
+         *              Messages
+         *  finaly: DISCONNECT   handeler
          */
         public void run() {
-            // Handle Join & Chat
+            /**     JOIN & CHAT
+             *  when someone connects he is repeatedly asked to submit username, until a uniqueone is given and accepted
+             *  if first to join, get notified about it
+             *  with every join we update the coordinator & members for all clients
+             *  messages are exchanged either privately or with the group
+             */
             try {
                 in = new Scanner(socket.getInputStream());
                 out = new PrintWriter(socket.getOutputStream(), true);
@@ -99,13 +104,13 @@ public class ChatServer {
                 }
                 // Add writer {name: PrintWriter}
                 writers.put(name, out);
-                // First message + add coordinator
+                // if: First message + add coordinator
                 if (names.size() == 1) {
                     DateTimeFormatter hhmm = DateTimeFormatter.ofPattern("HH:mm");
                     LocalTime time = LocalTime.now();
                     writers.get(name).println("MESSAGE You are the first to join and the coordinator of this chat (" + time.format(hhmm) + ")");
                     writers.get(name).println("COORDINATOR " + coordinator);
-                // Send ALL: Flag -> COORDINATOR, MEMBERS
+                // else: Send ALL: Flag -> COORDINATOR, MEMBERS
                 } else {
                     for (HashMap.Entry<String, PrintWriter> writer : writers.entrySet()) {
                         writer.getValue().println("COORDINATOR " + coordinator);
@@ -133,7 +138,10 @@ public class ChatServer {
                 }
             } catch (Exception e) {
                 System.out.println(name + " is disconecting");
-            // Handle Disconnect
+            /**     DISCONNECT
+             *  disconects the user and changes the coordinator if needed
+             *  notifies everyone about the changes
+             */
             } finally {
                 // Remove writer
                 if (out != null) {
