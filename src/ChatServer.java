@@ -110,7 +110,7 @@ public class ChatServer {
                     LocalTime time = LocalTime.now();
                     writers.get(name).println("MESSAGE You are the first to join and the coordinator of this chat (" + time.format(hhmm) + ")");
                     writers.get(name).println("COORDINATOR " + coordinator);
-                // else: Send ALL: Flag -> COORDINATOR, MEMBERS
+                    // else: Send ALL: Flag -> COORDINATOR, MEMBERS
                 } else {
                     for (HashMap.Entry<String, PrintWriter> writer : writers.entrySet()) {
                         writer.getValue().println("COORDINATOR " + coordinator);
@@ -127,7 +127,7 @@ public class ChatServer {
                         String toName = new String(input.substring(input.indexOf("[")+1, input.indexOf("]")));
                         writers.get(toName).println("MESSAGE " + name + "(pm)(" + time.format(hhmm) + "): " + input.substring(input.indexOf("]")+1));
                         writers.get(name).println("MESSAGE pm to " + toName + "(" + time.format(hhmm) + "): " + input.substring(input.indexOf("]")+1));
-                    // group messages
+                        // group messages
                     } else {
                         for (HashMap.Entry<String, PrintWriter> writer : writers.entrySet()) {
                             DateTimeFormatter hhmm = DateTimeFormatter.ofPattern("HH:mm");
@@ -138,10 +138,10 @@ public class ChatServer {
                 }
             } catch (Exception e) {
                 System.out.println(name + " is disconecting");
-            /**     DISCONNECT
-             *  disconects the user and changes the coordinator if needed
-             *  notifies everyone about the changes
-             */
+                /**     DISCONNECT
+                 *  disconects the user and changes the coordinator if needed
+                 *  notifies everyone about the changes
+                 */
             } finally {
                 // Remove writer
                 if (out != null) {
@@ -165,7 +165,7 @@ public class ChatServer {
                             writer.getValue().println("MEMBERS " + names);
                         }
                     } else {
-                    // if MEMBER
+                        // if MEMBER
                         for (HashMap.Entry<String, PrintWriter> writer : writers.entrySet()) {
                             DateTimeFormatter hhmm = DateTimeFormatter.ofPattern("HH:mm");
                             LocalTime time = LocalTime.now();

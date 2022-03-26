@@ -61,7 +61,7 @@ public class ChatClient {
                 // exit on "/quit"
                 if (message.toLowerCase().startsWith("/quit")) {
                     System.exit(0);
-                // otherwise: send out contents
+                    // otherwise: send out contents
                 } else {
                     out.println(textField.getText());
                 }
