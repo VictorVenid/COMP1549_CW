@@ -1,18 +1,19 @@
-Victor: 001115103                     0%
+Victor Dinev: 001115103                 0%
   > GitHub repository setup
   > Group Coordinator
   > Code:
     > Added Timestamps to messages
     > Coordinator Role set up
-    > Members Display set up
+    > Display Members in client
     > Private Messaging
     > Client retry connect
+    > Client remembers session on server disconnect
     > Server Memory
-Zhen: 001197922                       0%
+Zhen: 001197922                         0%
   > JUnit Testing set-up
-Sapphire: 001071889                   0%
+Sapphire: 001071889                     0%
+  > Chat Client documentation
+Kurt:                                   0%
   > 
-Kurt:                                 0%
-  > 
-Tharshan: 001112250                   0%
-  > Chat Server document done
+Tharshan: 001112250                     0%
+  > Chat Server documentation

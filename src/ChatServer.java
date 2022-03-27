@@ -43,7 +43,8 @@ public class ChatServer {
     // Start the Server
     public static void main(String[] args) throws Exception {
         System.out.println("The chat server is running...");
-        addToMemory("\n\nSERVER START: "+ LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yy HH:mm")) + "\n");
+        addToMemory("\n------------------------------------------------------------------------------------------------------------------------" +
+                "\nSERVER START: "+ LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yy HH:mm")) + "\n");
         ExecutorService pool = Executors.newFixedThreadPool(100);
         try (ServerSocket listener = new ServerSocket(59001)) {
             while (true) {
@@ -120,22 +121,28 @@ public class ChatServer {
                         writer.getValue().println("MEMBERS " + names);
                     }
                 }
-                // Handle messages + time
+                // Handle messages
                 while (true) {
                     String input = in.nextLine();
                     // private messages (pm)
                     if (input.startsWith("/[")) {
-                        String toName = new String(input.substring(input.indexOf("[")+1, input.indexOf("]")));
-                        writers.get(toName).println("MESSAGE " + name + "(pm)(" +
-                                LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")) + "): " +
-                                input.substring(input.indexOf("]")+1));
-                        writers.get(name).println("MESSAGE pm to " + toName + "(" +
-                                LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")) + "): " +
-                                input.substring(input.indexOf("]")+1));
-                        addToMemory("(private): " + name + " -> " + toName + ": " +
-                                input.substring(input.indexOf("]")+1) + "(" +
-                                LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")) + ")");
-                        // group messages
+                        try {
+                            String toName = new String(input.substring(input.indexOf("[")+1, input.indexOf("]")));
+                            toName.replaceAll(" ", "");
+                            writers.get(toName).println("MESSAGE " + name + "(pm)(" +
+                                    LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")) + "): " +
+                                    input.substring(input.indexOf("]") + 1));
+                            writers.get(name).println("MESSAGE pm to " + toName + "(" +
+                                    LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")) + "): " +
+                                    input.substring(input.indexOf("]") + 1));
+                            addToMemory("(private): " + name + " -> " + toName + ": " +
+                                    input.substring(input.indexOf("]") + 1) + "(" +
+                                    LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")) + ")");
+                        } catch (Exception wrongCommand){
+                            writers.get(name).println("MESSAGE Wrong use of command! (" +
+                                    LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")) + ")");
+                        }
+                    // group messages
                     } else {
                         for (HashMap.Entry<String, PrintWriter> writer : writers.entrySet()) {
                             writer.getValue().println("MESSAGE " + name + "(" +
@@ -147,10 +154,10 @@ public class ChatServer {
                 }
             } catch (Exception e) {
                 System.out.println(name + " is disconnecting");
-                /**     DISCONNECT
-                 *  disconnects the user and changes the coordinator if needed
-                 *  notifies everyone about the changes
-                 */
+            /**     DISCONNECT
+             *  disconnects the user and changes the coordinator if needed
+             *  notifies everyone about the changes
+             */
             } finally {
                 // Remove writer
                 if (out != null) {
@@ -174,7 +181,7 @@ public class ChatServer {
                             writer.getValue().println("MEMBERS " + names);
                         }
                         addToMemory(name + " disconnected. " + coordinator + " is coordinator ("
-                                + LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
+                                + LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")) + ")");
                     } else {
                         // if MEMBER
                         for (HashMap.Entry<String, PrintWriter> writer : writers.entrySet()) {

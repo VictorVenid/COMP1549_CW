@@ -76,7 +76,8 @@ public class ChatClient {
         // if there is a previous session, resume it
         if (name != null && !name.isEmpty()) {return name;}
         // otherwise, ask for LogIn
-        name = JOptionPane.showInputDialog(frame, "Choose a username:", "Username selection", JOptionPane.PLAIN_MESSAGE);
+        name = JOptionPane.showInputDialog(frame, "Choose a username:", "Username selection",
+                JOptionPane.PLAIN_MESSAGE);
         if (name == null) {System.exit(0);}
         // replace all " " in name (name standard is any character except " ")
         name = name.replaceAll(" ", "");
@@ -123,7 +124,8 @@ public class ChatClient {
                 }
             } catch (Exception ServerNotResponding){
                 String[] options = {"Retry", "Cancel"};
-                int retry = JOptionPane.showOptionDialog(frame, "Server not responding!", "Title",
+                int retry = JOptionPane.showOptionDialog(frame,
+                        "Server not responding!", "Connection Problem",
                         JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
                 if (retry == 1) {
                     System.exit(0);

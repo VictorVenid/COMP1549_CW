@@ -1,3 +1,4 @@
+------------------------------------------------------------------------------------------------------------------------
 SERVER START: 26/03/22 22:02
 
 Victor joined (22:02)
@@ -14,9 +15,107 @@ Victor(22:04): yoo
 Victor disconnected (22:04)
 Shen disconnected (22:04) null is coordinator
 
-
+------------------------------------------------------------------------------------------------------------------------
 SERVER START: 26/03/22 22:04
 
 NewTest joined (22:04)
 NewTest is coordinator (22:04)
 NewTest disconnected (22:05) null is coordinator
+
+
+------------------------------------------------------------------------------------------------------------------------
+SERVER START: 27/03/22 15:29
+
+
+------------------------------------------------------------------------------------------------------------------------
+SERVER START: 27/03/22 17:13
+
+ONE joined (17:13)
+ONE is coordinator (17:13)
+TWO joined (17:13)
+TWO disconnected (17:14)
+TWO joined (17:14)
+TWO disconnected (17:14)
+ONE disconnected. null is coordinator (17:14)
+
+------------------------------------------------------------------------------------------------------------------------
+SERVER START: 27/03/22 17:22
+
+ONE joined (17:22)
+ONE is coordinator (17:22)
+ONE disconnected. null is coordinator (17:22)
+ONE joined (17:22)
+ONE is coordinator (17:22)
+ONE(17:23): what
+ONE disconnected. null is coordinator (17:23)
+ONE joined (17:23)
+ONE is coordinator (17:23)
+ONE disconnected. null is coordinator (17:23)
+ONE joined (17:23)
+ONE is coordinator (17:23)
+TWO joined (17:23)
+TWO disconnected (17:23)
+TWO joined (17:23)
+ONE disconnected. TWO is coordinator (17:30)
+ONE joined (17:30)
+
+------------------------------------------------------------------------------------------------------------------------
+SERVER START: 27/03/22 18:24
+
+TWO joined (18:24)
+TWO is coordinator (18:24)
+ONE joined (18:24)
+ONE(18:24): yoo
+(private): ONE -> TWO:  sup man(18:24)
+ONE disconnected (18:24)
+TWO disconnected. null is coordinator (18:24)
+
+------------------------------------------------------------------------------------------------------------------------
+SERVER START: 27/03/22 18:24
+
+ONE joined (18:24)
+ONE is coordinator (18:24)
+TWO joined (18:24)
+TWO disconnected (18:25)
+TWO joined (18:25)
+TWO disconnected (18:25)
+TWO joined (18:25)
+TWO disconnected (18:26)
+TWO joined (18:26)
+ONE disconnected. TWO is coordinator (18:26)
+ONE joined (18:26)
+ONE(18:26): wierd
+TWO disconnected. ONE is coordinator (18:28)
+ONE disconnected. null is coordinator (18:28)
+
+------------------------------------------------------------------------------------------------------------------------
+SERVER START: 27/03/22 18:29
+
+ONE' joined (18:29)
+ONE' is coordinator (18:29)
+TWO joined (18:29)
+TWO disconnected (18:29)
+TWO joined (18:29)
+TWO disconnected (18:30)
+TWO joined (18:30)
+TWO(18:30): /'
+TWO disconnected (18:31)
+TWO joined (18:31)
+TWO disconnected (18:31)
+ONE' disconnected. null is coordinator (18:31)
+
+------------------------------------------------------------------------------------------------------------------------
+SERVER START: 27/03/22 18:31
+
+ONE joined (18:32)
+ONE is coordinator (18:32)
+TWO joined (18:32)
+(private): TWO -> TWO: (18:32)
+TWO(18:32): 
+TWO(18:32): 
+TWO(18:32): 
+TWO(18:32): 
+TWO(18:32): 
+TWO(18:32): 
+TWO disconnected (18:32)
+ONE disconnected. null is coordinator (18:32)
