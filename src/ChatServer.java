@@ -126,6 +126,7 @@ public class ChatServer {
                     String input = in.nextLine();
                     // private messages (pm)
                     if (input.startsWith("/[")) {
+                        // Wrong command check with try/catch
                         try {
                             String toName = new String(input.substring(input.indexOf("[")+1, input.indexOf("]")));
                             toName.replaceAll(" ", "");
