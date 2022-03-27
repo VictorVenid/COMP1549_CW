@@ -81,6 +81,7 @@ public class ChatClient {
         if (name == null) {System.exit(0);}
         // replace all " " in name (name standard is any character except " ")
         name = name.replaceAll(" ", "");
+        name = name.replaceAll(",", "");
         return name;
     }
 
