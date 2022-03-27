@@ -153,7 +153,7 @@ public class ChatServer {
                                 LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm"))+ "): " + input);
                     }
                 }
-            } catch (Exception e) {
+            } catch (Exception Disconnecting) {
                 System.out.println(name + " is disconnecting");
             /**     DISCONNECT
              *  disconnects the user and changes the coordinator if needed
@@ -198,7 +198,7 @@ public class ChatServer {
                 }
                 // Close Socket
                 try { socket.close(); System.out.println(name + " disconnected");
-                } catch (IOException e) {}
+                } catch (IOException e) { System.out.println(e);}
             }
         }
     }

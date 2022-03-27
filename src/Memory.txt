@@ -105,21 +105,8 @@ TWO disconnected (18:31)
 ONE' disconnected. null is coordinator (18:31)
 
 ------------------------------------------------------------------------------------------------------------------------
-SERVER START: 27/03/22 18:31
+SERVER START: 27/03/22 22:13
 
-ONE joined (18:32)
-ONE is coordinator (18:32)
-TWO joined (18:32)
-(private): TWO -> TWO: (18:32)
-TWO(18:32): 
-TWO(18:32): 
-TWO(18:32): 
-TWO(18:32): 
-TWO(18:32): 
-TWO(18:32): 
-TWO disconnected (18:32)
-ONE disconnected. null is coordinator (18:32)
-fck,this joined (19:00)
-fck,this is coordinator (19:00)
-no,no,no joined (19:00)
-no,no,no disconnected (19:00)
+writer.write(line+"\n") joined (22:13)
+writer.write(line+"\n") is coordinator (22:13)
+writer.write(line+"\n") disconnected. null is coordinator (22:17)

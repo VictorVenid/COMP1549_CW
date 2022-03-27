@@ -128,7 +128,7 @@ public class ChatClient {
                 int retry = JOptionPane.showOptionDialog(frame,
                         "Server not responding!", "Connection Problem",
                         JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
-                if (retry == 1) {
+                if (retry == 1 || retry == -1) {
                     System.exit(0);
                 }
             }
