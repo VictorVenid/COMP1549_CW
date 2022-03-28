@@ -71,10 +71,10 @@ public class ChatServer {
          */
         public void run() {
             /**     JOIN & CHAT
-             *  when someone connects he is repeatedly asked to submit username, until a uniqueone is given and accepted
-             *  if first to join, get notified about it
-             *  with every join we update the coordinator & members for all clients
-             *  messages are exchanged either privately or with the group
+             * when someone connects he is repeatedly asked to submit username, until a unique one is given and accepted
+             * if first to join, get notified about it
+             * with every join we update the coordinator & members for all clients
+             * messages are exchanged either privately or with the group
              */
             try {
                 in = new Scanner(socket.getInputStream());
@@ -202,6 +202,7 @@ public class ChatServer {
             }
         }
     }
+    // addToMemory function stores all
     private static void addToMemory(String line) {
         try{
             FileWriter writer = new FileWriter("src\\Memory.txt", true);

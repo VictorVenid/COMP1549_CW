@@ -110,3 +110,63 @@ SERVER START: 27/03/22 22:13
 writer.write(line+"\n") joined (22:13)
 writer.write(line+"\n") is coordinator (22:13)
 writer.write(line+"\n") disconnected. null is coordinator (22:17)
+
+------------------------------------------------------------------------------------------------------------------------
+SERVER START: 27/03/22 22:24
+
+TestFinished joined (22:24)
+TestFinished is coordinator (22:24)
+(private): TestFinished -> TestFinished:  ?(22:24)
+TestFinished disconnected. null is coordinator (22:24)
+writer.write(line+"\n"); joined (22:32)
+writer.write(line+"\n"); is coordinator (22:32)
+writer.write(line+"\n"); disconnected. null is coordinator (22:32)
+j joined (22:42)
+j is coordinator (22:42)
+j(22:42): 
+j(22:42): 
+j disconnected. null is coordinator (22:43)
+writers.remove(out); joined (22:46)
+writers.remove(out); is coordinator (22:46)
+writers.remove(out); disconnected. null is coordinator (22:46)
+
+------------------------------------------------------------------------------------------------------------------------
+SERVER START: 28/03/22 11:54
+
+Victor joined (11:54)
+Victor is coordinator (11:54)
+TWO joined (11:54)
+(private): TWO -> Victor:  Hello(11:54)
+TWO(11:54): hey
+THREE joined (11:55)
+(private): Victor -> TWO:  hi(11:55)
+THREE(11:55): hello
+Victor(11:55): everyone
+Victor disconnected. TWO is coordinator (11:55)
+THREE disconnected (11:56)
+TWO disconnected. null is coordinator (11:56)
+ONE joined (12:22)
+ONE is coordinator (12:22)
+TWO joined (12:22)
+ONE disconnected. TWO is coordinator (12:22)
+TWO disconnected. null is coordinator (12:22)
+
+------------------------------------------------------------------------------------------------------------------------
+SERVER START: 28/03/22 12:29
+
+ONE joined (12:29)
+ONE is coordinator (12:29)
+TWO joined (12:29)
+THREE joined (12:29)
+ONE(12:30): hello
+(private): ONE -> TWO:  hi(12:30)
+ONE disconnected. TWO is coordinator (12:30)
+
+------------------------------------------------------------------------------------------------------------------------
+SERVER START: 28/03/22 12:30
+
+TWO joined (12:30)
+TWO is coordinator (12:30)
+THREE joined (12:30)
+THREE disconnected (12:30)
+TWO disconnected. null is coordinator (12:30)
