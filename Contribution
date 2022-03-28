@@ -6,8 +6,7 @@ Victor Dinev: 001115103                 0%
     > Coordinator Role set up
     > Display Members in client
     > Private Messaging
-    > Client retry connect
-    > Client remembers session on server disconnect
+    > Client "Server Offline" box
     > Server Memory
   > Code Report
 
@@ -16,7 +15,7 @@ Zhen: 001197922                         0%
 
 Sapphire: 001071889                     0%
   > Chat Client Documentation
-  > Dessign Patterns
+  > Design Patterns
 
 Kurt:                                   0%
   > Component-Based Principles
