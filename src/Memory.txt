@@ -170,3 +170,49 @@ TWO is coordinator (12:30)
 THREE joined (12:30)
 THREE disconnected (12:30)
 TWO disconnected. null is coordinator (12:30)
+
+------------------------------------------------------------------------------------------------------------------------
+SERVER START: 28/03/22 13:22
+
+ONE joined (13:22)
+ONE is coordinator (13:22)
+TWO joined (13:25)
+TWO(13:25): mesasage
+ONE disconnected. TWO is coordinator (13:25)
+TWO disconnected. null is coordinator (13:25)
+
+------------------------------------------------------------------------------------------------------------------------
+SERVER START: 28/03/22 13:33
+
+ONE joined (13:33)
+ONE is coordinator (13:33)
+ONE(13:33): smth
+
+------------------------------------------------------------------------------------------------------------------------
+SERVER START: 28/03/22 13:33
+
+ONE joined (13:33)
+ONE is coordinator (13:33)
+ONE disconnected. null is coordinator (13:34)
+
+------------------------------------------------------------------------------------------------------------------------
+SERVER START: 28/03/22 14:28
+
+
+------------------------------------------------------------------------------------------------------------------------
+SERVER START: 28/03/22 14:28
+
+ONE joined (14:28)
+ONE is coordinator (14:28)
+
+------------------------------------------------------------------------------------------------------------------------
+SERVER START: 28/03/22 14:28
+
+ONE joined (14:28)
+ONE is coordinator (14:28)
+TWO joined (14:28)
+TWO disconnected (14:28)
+ONE disconnected. null is coordinator (14:28)
+Victor joined (14:32)
+Victor is coordinator (14:32)
+Victor disconnected. null is coordinator (14:39)
