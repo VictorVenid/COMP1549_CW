@@ -272,3 +272,25 @@ TEST2 disconnected. null is coordinator (12:43)
 ------------------------------------------------------------------------------------------------------------------------
 SERVER START: 31/03/22 12:44
 
+
+------------------------------------------------------------------------------------------------------------------------
+SERVER START: 31/03/22 14:29
+
+ONE joined (14:30)
+ONE is coordinator (14:30)
+TWO joined (14:30)
+THREE joined (14:30)
+(private): ONE -> TWO:  Hello(14:30)
+ONE(14:31): hello
+ONE disconnected. TWO is coordinator (14:31)
+THREE disconnected (14:31)
+TWO disconnected. null is coordinator (14:33)
+
+------------------------------------------------------------------------------------------------------------------------
+SERVER START: 31/03/22 14:38
+
+ONE joined (14:38)
+ONE is coordinator (14:38)
+TWO joined (14:39)
+TWO disconnected (14:39)
+ONE disconnected. null is coordinator (14:39)
