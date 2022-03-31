@@ -1,6 +1,4 @@
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.FileWriter;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Set;
@@ -43,6 +41,18 @@ public class ChatServer {
     // Start the Server
     public static void main(String[] args) throws Exception {
         System.out.println("The chat server is running...");
+
+        //JUnit Test part, gain the text from console
+        ByteArrayOutputStream baoStream = new ByteArrayOutputStream(1024);
+        PrintStream cacheStream = new PrintStream(baoStream);
+        PrintStream oldStream = System.out;
+        System.setOut(cacheStream);
+        System.out.print("The chat server is running...");
+        String message = baoStream.toString();
+        System.setOut(oldStream);
+        System.out.println("The message is ["+message+"]");
+
+
         addToMemory("\n------------------------------------------------------------------------------------------------------------------------" +
                 "\nSERVER START: "+ LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yy HH:mm")) + "\n");
         ExecutorService pool = Executors.newFixedThreadPool(100);

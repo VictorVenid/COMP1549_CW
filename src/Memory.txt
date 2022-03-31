@@ -216,3 +216,23 @@ ONE disconnected. null is coordinator (14:28)
 Victor joined (14:32)
 Victor is coordinator (14:32)
 Victor disconnected. null is coordinator (14:39)
+
+------------------------------------------------------------------------------------------------------------------------
+SERVER START: 29/03/22 02:31
+
+
+------------------------------------------------------------------------------------------------------------------------
+SERVER START: 31/03/22 03:03
+
+1 joined (03:04)
+1 is coordinator (03:04)
+2 joined (03:04)
+3 joined (03:04)
+3(03:04): hello
+1(03:04): co
+1 disconnected. 2 is coordinator (03:05)
+1 joined (03:05)
+1(03:05): again
+2 disconnected. 1 is coordinator (03:05)
+1 disconnected. 3 is coordinator (03:05)
+3 disconnected. null is coordinator (03:05)
